@@ -166,7 +166,7 @@ namespace MetodosOrdenamiento
                     if (Posicion < 0)
                         Console.WriteLine("No se encontro el valor");
                     else
-                        Console.WriteLine("Se encontro el valor en la posición: {0}", Posicion);
+                        Console.WriteLine("Se encontro el valor en la posición: {0}", Posicion + 1);
                 }
 
                 Console.WriteLine("--------------------------------------------------------");
