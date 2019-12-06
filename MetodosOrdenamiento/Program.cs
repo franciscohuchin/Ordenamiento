@@ -115,7 +115,7 @@ namespace MetodosOrdenamiento
                     Console.Write("]\n");
                     Ordenados = Metodos.Shell(aleatorios.Select(ele => ele).ToList());
                     Metodos.CuadroComparitivo(aleatorios);
-                    Console.WriteLine();
+                    /*Console.WriteLine();
                     Console.Write("Arreglo ordenado  [");
 
                      
@@ -125,7 +125,7 @@ namespace MetodosOrdenamiento
                         if (Ordenados.IndexOf(N) < Ordenados.Count - 1)
                             Console.Write(',');
                     }
-                    Console.Write("]\n");
+                    Console.Write("]\n");*/
                 }
                 else if (Metodo == 2)
                 {
