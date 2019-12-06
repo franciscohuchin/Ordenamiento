@@ -129,10 +129,10 @@ namespace MetodosOrdenamiento
                 }
                 else if (Metodo == 2)
                 {
-                    int opcion = 0;
+                    //int opcion = 0;
                     Console.WriteLine("---------------------Busquedas------------------------");
 
-                    while (opcion == 0)
+                    /*while (opcion == 0)
                     {
                         Console.WriteLine("Seleccione una opción.");
                         Console.WriteLine("1 -> Secuencial");
@@ -147,7 +147,7 @@ namespace MetodosOrdenamiento
                             Console.Write('\n');
                             opcion = 0;
                         }
-                    }
+                    }*/
                     int ValorDeseado = 0;
                     bool band = true;
                     while (band)
@@ -166,7 +166,7 @@ namespace MetodosOrdenamiento
                         }
                     }
                     int Posicion = 0;
-                    if (opcion == 1)
+                    /*if (opcion == 1)
                     {
                         Console.Write("Arreglo [");
 
@@ -176,33 +176,49 @@ namespace MetodosOrdenamiento
                             if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
                                 Console.Write(',');
                         }
-                        Console.Write("]\n");
+                        Console.Write("]\n");*/
 
-                        Posicion = BusquedaSecuencial(aleatorios, ValorDeseado);
+                    Posicion = BusquedaSecuencial(aleatorios, ValorDeseado);
 
-                    }
-                    if (opcion == 2)
+                    //}
+                    //if (opcion == 2)
+                    //{
+                    //busqueda secuencial
+                    Console.WriteLine("\n");
+                    Console.WriteLine("Busqueda secuencial");
+                    Console.WriteLine("Arreglo de entrada: ");
+                    Console.Write("Arreglo [");
+
+                    foreach (int N in aleatorios)
                     {
-                        Console.Write("Arreglo ordenado  [");
-
-                        var NuevoOrdenamiento = Metodos.Shell(aleatorios.Select(ele => ele).ToList());
-                        foreach (int N in NuevoOrdenamiento)
-                        {
-                            Console.Write(N);
-                            if (NuevoOrdenamiento.IndexOf(N) < NuevoOrdenamiento.Count - 1)
-                                Console.Write(',');
-                        }
-                        Console.Write("]\n");
-                        Posicion = BusquedaBinaria(NuevoOrdenamiento, ValorDeseado);
-                        if (Posicion > -1)
-                        {
-                            Posicion = NuevoOrdenamiento.IndexOf(ValorDeseado);
-                        }
+                        Console.Write(N);
+                        if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
+                            Console.Write(',');
                     }
-                    if (Posicion < 0)
+                    Console.Write("]\n");
+                    if (Posicion < 0)//esto se movio
                         Console.WriteLine("No se encontro el valor");
                     else
                         Console.WriteLine("Se encontro el valor en la posición: {0}", Posicion + 1);
+                    Console.WriteLine("\n");
+                    Console.WriteLine("Busqueda binaria");
+                    Console.Write("Arreglo ordenado de forma ascendente:  [");
+
+                    var NuevoOrdenamiento = Metodos.Shell(aleatorios.Select(ele => ele).ToList());
+                    foreach (int N in NuevoOrdenamiento)
+                    {
+                        Console.Write(N);
+                        if (NuevoOrdenamiento.IndexOf(N) < NuevoOrdenamiento.Count - 1)
+                            Console.Write(',');
+                    }
+                    Console.Write("]\n");
+                    /*Posicion = BusquedaBinaria(NuevoOrdenamiento, ValorDeseado);
+                    if (Posicion > -1)
+                    {
+                        Posicion = NuevoOrdenamiento.IndexOf(ValorDeseado);
+                    }
+                }*/
+
                 }
 
                 Console.WriteLine("--------------------------------------------------------");
