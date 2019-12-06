@@ -35,8 +35,8 @@ namespace MetodosOrdenamiento
             
             for(int i=0; i<NumeroElementos; i++)
             {
-                int Elemento = 0;
-                while (Elemento == 0)
+                int Elemento = -1;
+                while (Elemento == -1)
                 {
                     Console.Write("Siguiente número ({0}): ", i + 1);
                     string Lectura = Console.ReadLine();
@@ -46,6 +46,13 @@ namespace MetodosOrdenamiento
                         Console.WriteLine("Por favor digite un número");
                         Console.WriteLine("...........");
                         Console.Write('\n');
+                    }
+                    if(aleatorios.Contains(Elemento))
+                    {
+                        Console.WriteLine("Por favor digite un número");
+                        Console.WriteLine("...........");
+                        Console.Write('\n');
+                        Elemento = -1;
                     }
                 }
                 aleatorios.Add(Elemento);
@@ -64,7 +71,15 @@ namespace MetodosOrdenamiento
             bool VolverMenu = true;
             while (VolverMenu)
             {
+                Console.Write("Arreglo [");
 
+                foreach (int N in aleatorios)
+                {
+                    Console.Write(N);
+                    if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
+                        Console.Write(',');
+                }
+                Console.Write("]\n");
                 Console.WriteLine("--------------------------Menú--------------------------");
                 while (Metodo == 0)
                 {
@@ -89,7 +104,28 @@ namespace MetodosOrdenamiento
                 {
                     Console.WriteLine();
                     Console.WriteLine("---------------Tabla de eficiencia----------------------");
+                    Console.Write("Arreglo [");
+
+                    foreach (int N in aleatorios)
+                    {
+                        Console.Write(N);
+                        if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
+                            Console.Write(',');
+                    }
+                    Console.Write("]\n");
+                    Ordenados = Metodos.Shell(aleatorios.Select(ele => ele).ToList());
                     Metodos.CuadroComparitivo(aleatorios);
+                    Console.WriteLine();
+                    Console.Write("Arreglo ordenado  [");
+
+                     
+                    foreach (int N in Ordenados)
+                    {
+                        Console.Write(N);
+                        if (Ordenados.IndexOf(N) < Ordenados.Count - 1)
+                            Console.Write(',');
+                    }
+                    Console.Write("]\n");
                 }
                 else if (Metodo == 2)
                 {
@@ -176,11 +212,12 @@ namespace MetodosOrdenamiento
                     Console.WriteLine("-------------------Desea volver al menú-----------------");
                     Console.WriteLine("1 -> SI");
                     Console.WriteLine("2 -> NO");
+                    Console.WriteLine("3 -> SI Y LIMPIAR PANTALLA");
                     Console.Write("Opcion: ");
                     string Accion = Console.ReadLine();
 
                     bool Numero = int.TryParse(Accion, out Volver);
-                    if (!Numero || Volver < 0 || Volver > 2)
+                    if (!Numero || Volver < 0 || Volver > 3)
                     {
                         Console.WriteLine("Por favor elija una opción.");
                         Console.WriteLine("...........");
@@ -192,8 +229,13 @@ namespace MetodosOrdenamiento
                 {
                     VolverMenu = false;
                 }
+                else if(Volver ==1)
+                {
+                    Metodo = 0;
+                }
                 else
                 {
+                    Console.Clear();
                     Metodo = 0;
                 }
 
