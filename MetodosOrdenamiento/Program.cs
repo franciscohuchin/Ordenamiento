@@ -10,17 +10,14 @@ namespace MetodosOrdenamiento
     {
         static void Main(string[] args)
         {
-            List<int> aleatorios = new List<int>();// {42,21,7,19,11,1 };
-            //Ordenamiento Metodos = new Ordenamiento();
-            //var ordenados = Metodos.Burbuja(aleatorios);
-            //ImprimirArreglo(ordenados);
+            List<int> aleatorios = new List<int>();
             int NumeroElementos = 0;
             Console.WriteLine("----------------------------------------------------------");
             Console.WriteLine("------------------------Bienvenido------------------------");
             Console.WriteLine("----------------Proyecto de estrura de datos--------------");
             Console.WriteLine("Para empezar es necesario establecer el tamaño del arreglo");
             Console.WriteLine("Ingrese un numero(Minimo: 3, Maximo: 20)");
-            while (NumeroElementos <= 2 && NumeroElementos <=20)
+            while (NumeroElementos <= 2 && NumeroElementos <= 20)
             {
                 Console.Write("Número: ");
                 string Lectura = Console.ReadLine();
@@ -35,19 +32,54 @@ namespace MetodosOrdenamiento
             }
             Console.WriteLine("Establecio el tamaño del arreglo en : {0}", NumeroElementos);
             Console.WriteLine("Vamos a capturar los números...");
-            
-            for(int i=0; i<NumeroElementos; i++)
-            {                
-                aleatorios.Add(NuevoElemento(aleatorios, i));
+
+            for (int i = 0; i < NumeroElementos; i++)
+            {
+                int Elemento = -1;
+                while (Elemento == -1)
+                {
+                    Console.Write("Siguiente número ({0}): ", i + 1);
+                    string Lectura = Console.ReadLine();
+                    bool Numero = int.TryParse(Lectura, out Elemento);
+                    if (!Numero)
+                    {
+                        Console.WriteLine("Por favor digite un número");
+                        Console.WriteLine("...........");
+                        Console.Write('\n');
+                    }
+                    if (aleatorios.Contains(Elemento))
+                    {
+                        Console.WriteLine("Por favor digite un número");
+                        Console.WriteLine("...........");
+                        Console.Write('\n');
+                        Elemento = -1;
+                    }
+                }
+                aleatorios.Add(Elemento);
             }
-            Console.Clear();
+            Console.Write("El vector capturado es: [");
+            foreach (int N in aleatorios)
+            {
+                Console.Write(N);
+                if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
+                    Console.Write(',');
+            }
+            Console.Write("]\n");
+            Console.WriteLine("--------------------------------------------------------");
+
             int Metodo = 0;
             bool VolverMenu = true;
             while (VolverMenu)
             {
-                Console.WriteLine("------------------------Arreglo-------------------------");
-                Console.Write("Arreglo ");
-                ImprimirArreglo(aleatorios);
+                Console.Write("Arreglo [");
+
+                foreach (int N in aleatorios)
+                {
+                    Console.Write(N);
+                    if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
+                        Console.Write(',');
+                }
+                Console.Write("]\n");
                 Console.WriteLine("--------------------------Menú--------------------------");
                 while (Metodo == 0)
                 {
@@ -65,19 +97,56 @@ namespace MetodosOrdenamiento
                         Metodo = 0;
                     }
                 }
+                List<int> Ordenados = null;
                 Ordenamiento Metodos = new Ordenamiento();
                 Console.WriteLine();
                 if (Metodo == 1)
                 {
                     Console.WriteLine();
                     Console.WriteLine("---------------Tabla de eficiencia----------------------");
-                    Console.Write("Arreglo ");
-                    ImprimirArreglo(aleatorios);                  
-                    Metodos.CuadroComparitivo(aleatorios);                    
+                    Console.Write("Arreglo [");
+
+                    foreach (int N in aleatorios)
+                    {
+                        Console.Write(N);
+                        if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
+                            Console.Write(',');
+                    }
+                    Console.Write("]\n");
+                    Ordenados = Metodos.Shell(aleatorios.Select(ele => ele).ToList());
+                    Metodos.CuadroComparitivo(aleatorios);
+                    /*Console.WriteLine();
+                    Console.Write("Arreglo ordenado  [");
+                     
+                    foreach (int N in Ordenados)
+                    {
+                        Console.Write(N);
+                        if (Ordenados.IndexOf(N) < Ordenados.Count - 1)
+                            Console.Write(',');
+                    }
+                    Console.Write("]\n");*/
                 }
                 else if (Metodo == 2)
                 {
-                    Console.WriteLine("-----------------------Busquedas-------------------------");                    
+                    //int opcion = 0;
+                    Console.WriteLine("---------------------Busquedas------------------------");
+
+                    /*while (opcion == 0)
+                    {
+                        Console.WriteLine("Seleccione una opción.");
+                        Console.WriteLine("1 -> Secuencial");
+                        Console.WriteLine("2 -> Binaria");
+                        Console.Write("Opcion: ");
+                        string Lectura = Console.ReadLine();
+                        bool EsNumero = int.TryParse(Lectura, out opcion);
+                        if (!EsNumero || opcion <= 0 || opcion > 2)
+                        {
+                            Console.WriteLine("Por favor elija una opción.");
+                            Console.WriteLine("...........");
+                            Console.Write('\n');
+                            opcion = 0;
+                        }
+                    }*/
                     int ValorDeseado = 0;
                     bool band = true;
                     while (band)
@@ -96,103 +165,128 @@ namespace MetodosOrdenamiento
                         }
                     }
                     int Posicion = 0;
-                    Busqueda Busquedas = new Busqueda();
+                    /*if (opcion == 1)
+                    {
+                        Console.Write("Arreglo [");
+                        foreach (int N in aleatorios)
+                        {
+                            Console.Write(N);
+                            if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
+                                Console.Write(',');
+                        }
+                        Console.Write("]\n");*/
 
-                    Posicion = Busquedas.Secuencial(aleatorios, ValorDeseado);
+                    Posicion = BusquedaSecuencial(aleatorios, ValorDeseado);
 
-                   
+                    //}
+                    //if (opcion == 2)
+                    //{
+                    //busqueda secuencial
                     Console.WriteLine("\n");
-
-                    Console.WriteLine("-----------------Busqueda secuencial--------------------");
+                    Console.WriteLine("Busqueda secuencial");
                     Console.WriteLine("Arreglo de entrada: ");
-                    Console.Write("Arreglo ");
-                    ImprimirArreglo(aleatorios);                    
+                    Console.Write("Arreglo [");
+
+                    foreach (int N in aleatorios)
+                    {
+                        Console.Write(N);
+                        if (aleatorios.IndexOf(N) < aleatorios.Count - 1)
+                            Console.Write(',');
+                    }
+                    Console.Write("]\n");
                     if (Posicion < 0)//esto se movio
                         Console.WriteLine("No se encontro el valor");
                     else
                         Console.WriteLine("Se encontro el valor en la posición: {0}", Posicion + 1);
                     Console.WriteLine("\n");
-                    Console.WriteLine("------------------Busqueda binaria----------------------");
-                    Console.Write("Arreglo ordenado de forma ascendente: ");
+                    Console.WriteLine("Busqueda binaria");
+                    Console.Write("Arreglo ordenado de forma ascendente:  [");
 
                     var NuevoOrdenamiento = Metodos.Shell(aleatorios.Select(ele => ele).ToList());
-                    ImprimirArreglo(NuevoOrdenamiento);
-                    Console.WriteLine();                   
+                    foreach (int N in NuevoOrdenamiento)
+                    {
+                        Console.Write(N);
+                        if (NuevoOrdenamiento.IndexOf(N) < NuevoOrdenamiento.Count - 1)
+                            Console.Write(',');
+                    }
+                    Console.Write("]\n");
+                    /*Posicion = BusquedaBinaria(NuevoOrdenamiento, ValorDeseado);
+                    if (Posicion > -1)
+                    {
+                        Posicion = NuevoOrdenamiento.IndexOf(ValorDeseado);
+                    }
+                }*/
+
                 }
 
                 Console.WriteLine("--------------------------------------------------------");
                 Console.WriteLine("Fin del proceso");
                 int Volver = 0;
-                while (Volver==0) {
+                while (Volver == 0)
+                {
                     Console.WriteLine("-------------------Desea volver al menú-----------------");
                     Console.WriteLine("1 -> SI");
                     Console.WriteLine("2 -> NO");
                     Console.WriteLine("3 -> SI Y LIMPIAR PANTALLA");
                     Console.Write("Opcion: ");
                     string Accion = Console.ReadLine();
+
                     bool Numero = int.TryParse(Accion, out Volver);
-                    switch (Volver)
+                    if (!Numero || Volver < 0 || Volver > 3)
                     {
-                        case 1:
-                            Metodo = 0;
-                            break;
-                        case 2:
-                            VolverMenu = false;
-                            break;
-                        case 3:
-                            Metodo = 0;
-                            Console.Clear();
-                            break;
-                        default:
-                            Console.WriteLine("Por favor elija una opción.");
-                            Console.WriteLine("...........");
-                            Console.Write('\n');
-                            Volver = 0;
-                            break;
+                        Console.WriteLine("Por favor elija una opción.");
+                        Console.WriteLine("...........");
+                        Console.Write('\n');
+                        Volver = 0;
                     }
                 }
+                if (Volver == 2)
+                {
+                    VolverMenu = false;
+                }
+                else if (Volver == 1)
+                {
+                    Metodo = 0;
+                }
+                else
+                {
+                    Console.Clear();
+                    Metodo = 0;
+                }
+
             }
             Console.WriteLine("Presione enter para salir");
             Console.ReadLine();
 
         }
-
-        public static void ImprimirArreglo(List<int> arreglo)
+        public static int BusquedaSecuencial(List<int> Lista, int Valor)
         {
-            Console.Write("[");
-
-            foreach (int N in arreglo)
+            for (int i = 0; i < Lista.Count; i++)
             {
-                Console.Write(N);
-                if (arreglo.IndexOf(N) < arreglo.Count - 1)
-                    Console.Write(',');
+                if (Valor == Lista[i])
+                    return i;
             }
-            Console.Write("]\n");
+            return -1;
         }
 
-        public static int NuevoElemento(List<int> Lista, int i)
+        public static int BusquedaBinaria(List<int> Lista, int Valor)
         {
-            int Elemento = -1;
-            while (Elemento == -1)
+            if (Lista.Count == 0) return -1;
+            int PuntoMedio = (Lista.Count + 1) / 2;
+
+            int indice = PuntoMedio - 1;
+            List<int> Sublista = new List<int>();
+
+            if (Lista[indice] == Valor) return indice;
+            if (Valor < Lista[indice])
             {
-                Console.Write("Siguiente número ({0}): ", i + 1);
-                string Lectura = Console.ReadLine();
-                bool Numero = int.TryParse(Lectura, out Elemento);
-                if (!Numero)
-                {
-                    Console.WriteLine("Por favor digite un número");
-                    Console.WriteLine("...........");
-                    Console.Write('\n');
-                }
-                if (Lista.Contains(Elemento))
-                {
-                    Console.WriteLine("Este elemento ya se encuentra en el arreglo.");
-                    Console.WriteLine("...........");
-                    Console.Write('\n');
-                    Elemento = -1;
-                }
+                Sublista = Lista.GetRange(0, indice);
             }
-            return Elemento;
+            else
+            {
+                Sublista = Lista.GetRange(PuntoMedio, Lista.Count - PuntoMedio);
+            }
+            return BusquedaBinaria(Sublista, Valor);
         }
     }
 }
