@@ -17,9 +17,9 @@ namespace MetodosOrdenamiento
             int Auxiliar;
             for (int i = 0; i < Lista.Count; i++)
             {
-                IteracionesBurbuja++;
-                for (int j = 0; j < Lista.Count - 1; j++)
+                for (int j = 0; j < Lista.Count - i -1; j++)
                 {
+                    IteracionesBurbuja++;
                     if (Lista[j] > Lista[j + 1])
                     {
                         CambiosBurbuja++;
@@ -39,10 +39,13 @@ namespace MetodosOrdenamiento
             List<int> Derecha = new List<int>();//Los valores que son mayores
             if (Lista.Count < 1)
                 return new List<int>();
-            IteracionesQuicksort++;
-            int Pivote = Lista[0];//El pivote sera siempre el primer elemento
-            for (int i = 1; i < Lista.Count; i++)
+            int PuntoMedio = (Lista.Count + 1) / 2;
+            int Pivote = Lista[PuntoMedio - 1];//El pivote sera siempre el primer elemento
+            for (int i = 0; i < Lista.Count; i++)
             {
+                if (Pivote == Lista[i])
+                    continue;
+                IteracionesQuicksort++;
                 if (Pivote > Lista[i])
                 {
                     CambiosQuickSort++;
@@ -76,6 +79,7 @@ namespace MetodosOrdenamiento
                     int j = Salto;
                     while (j < Lista.Count)
                     {
+                        IteracionesShell++;
                         int inicio = j - Salto;
                         if (Lista[inicio] > Lista[j])
                         {
@@ -87,7 +91,6 @@ namespace MetodosOrdenamiento
                         }
                         j += Salto;
                     }
-                    IteracionesShell++;
                 }
 
             }
@@ -104,7 +107,7 @@ namespace MetodosOrdenamiento
 
             Console.WriteLine("Cuadro comparativo de los metodos de ordenamiento");
 
-            Console.WriteLine("Nombre\t\tIteraciones\tCambios");
+            Console.WriteLine("Nombre\t\tComparaciones\tCambios");
             Console.WriteLine("Burbuja\t\t{0}\t\t{1}", IteracionesBurbuja, CambiosBurbuja);
             Console.WriteLine("QuickSort\t{0}\t\t{1}", IteracionesQuicksort, CambiosQuickSort);
             Console.WriteLine("Shell\t\t{0}\t\t{1}", IteracionesShell, CambiosShell);

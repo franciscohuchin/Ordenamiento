@@ -10,7 +10,10 @@ namespace MetodosOrdenamiento
     {
         static void Main(string[] args)
         {
-            List<int> aleatorios = new List<int>();
+            List<int> aleatorios = new List<int>();// {42,21,7,19,11,1 };
+            //Ordenamiento Metodos = new Ordenamiento();
+            //var ordenados = Metodos.Burbuja(aleatorios);
+            //ImprimirArreglo(ordenados);
             int NumeroElementos = 0;
             Console.WriteLine("----------------------------------------------------------");
             Console.WriteLine("------------------------Bienvenido------------------------");
@@ -74,7 +77,6 @@ namespace MetodosOrdenamiento
                 }
                 else if (Metodo == 2)
                 {
-                    //int opcion = 0;
                     Console.WriteLine("-----------------------Busquedas-------------------------");                    
                     int ValorDeseado = 0;
                     bool band = true;
