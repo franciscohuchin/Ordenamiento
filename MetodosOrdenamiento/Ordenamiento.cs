@@ -34,36 +34,62 @@ namespace MetodosOrdenamiento
         }
 
         public List<int> QuickSort(List<int> Lista)
-        {           
-            List<int> Izquierda = new List<int>();//Los valores que son menores
-            List<int> Derecha = new List<int>();//Los valores que son mayores
+        {
             if (Lista.Count < 1)
                 return new List<int>();
-            int PuntoMedio = (Lista.Count + 1) / 2;
-            int Pivote = Lista[PuntoMedio - 1];//El pivote sera siempre el primer elemento
-            for (int i = 0; i < Lista.Count; i++)
+            int Inicio = 0, Fin = 0, Posicion = 0, Auxiliar = 0, Derecha = 0, Izquierda = 0;
+            bool Bandera = true;
+            Derecha =
+            Fin = Lista.Count - 1;
+            while(Bandera)
             {
-                if (Pivote == Lista[i])
-                    continue;
-                IteracionesQuicksort++;
-                if (Pivote > Lista[i])
+                Bandera = false;
+                while (Lista[Posicion] <= Lista[Derecha] && Posicion != Derecha)
                 {
-                    CambiosQuickSort++;
-                    Izquierda.Add(Lista[i]);
+                    IteracionesQuicksort++;
+                    Derecha--;
                 }
-                else
+                if(Posicion != Derecha)
                 {
+                    IteracionesQuicksort++;
                     CambiosQuickSort++;
-                    Derecha.Add(Lista[i]);
+                    Izquierda = Posicion + 1;
+                    Auxiliar = Lista[Posicion];
+                    Lista[Posicion] = Lista[Derecha];
+                    Lista[Derecha] = Auxiliar;
+                    Posicion = Derecha;
+                }
+                while(Lista[Posicion]>=Lista[Izquierda] && Posicion != Izquierda)
+                {
+                    IteracionesQuicksort++;
+                    Izquierda++;
+                }
+                if(Posicion != Izquierda)
+                {
+                    IteracionesQuicksort++;
+                    CambiosQuickSort++;
+                    Bandera = true;
+                    Derecha = Posicion - 1;
+                    Auxiliar = Lista[Posicion];
+                    Lista[Posicion] = Lista[Izquierda];
+                    Lista[Izquierda] = Auxiliar;
+                    Posicion = Izquierda;
+                    
                 }
             }
-            return new List<int>().Concat(QuickSort(Izquierda))//agregamos los menores
-                                    .Concat(new List<int> { Pivote })//agregamos el numero actual
-                                    .Concat(QuickSort(Derecha)).ToList();//agregamos los mayores
+
+            var izq = Lista.GetRange(0, Posicion);
+            var der = Lista.GetRange(Posicion + 1, Fin - Posicion);
+
+            return new List<int>().Concat(QuickSort( izq))
+                                    .Concat(new List<int> { Lista[Posicion] })
+                                    .Concat(QuickSort(der)).ToList();
         }
 
         public List<int> Shell(List<int> Lista)
         {
+            IteracionesShell = 0;
+            CambiosShell = 0;
             int Salto = Lista.Count;
             bool band = true;
             int Auxiliar = 0;
