@@ -88,11 +88,12 @@ namespace MetodosOrdenamiento
 
         public List<int> Shell(List<int> Lista)
         {
+            //ImprimirArreglo(Lista);
             IteracionesShell = 0;
             CambiosShell = 0;
-            int Salto = Lista.Count;
-            bool band = true;
+            int Salto = Lista.Count + 1;
             int Auxiliar = 0;
+            bool band = true;            
             while (band)
             {
                 band = false;
@@ -102,15 +103,15 @@ namespace MetodosOrdenamiento
                 else band = true;
                 for (int i = 0; i < Salto; i++)
                 {
-                    int j = Salto;
+                    int j = Salto + i;
                     while (j < Lista.Count)
                     {
                         IteracionesShell++;
-                        int inicio = j - Salto;
-                        if (Lista[inicio] > Lista[j])
+                        int Posicion =  j - Salto;
+                        if (Lista[Posicion] > Lista[j])
                         {
-                            Auxiliar = Lista[inicio];
-                            Lista[inicio] = Lista[inicio + Salto];
+                            Auxiliar = Lista[Posicion];
+                            Lista[Posicion] = Lista[Posicion + Salto];
                             Lista[j] = Auxiliar;
                             band = true;
                             CambiosShell++;
@@ -118,11 +119,25 @@ namespace MetodosOrdenamiento
                         j += Salto;
                     }
                 }
+               // Console.WriteLine();
+
+                //ImprimirArreglo(Lista);
 
             }
             return Lista;
         }
+        private void ImprimirArreglo(List<int> arreglo)
+        {
+            Console.Write("[");
 
+            foreach (int N in arreglo)
+            {
+                Console.Write(N);
+                if (arreglo.IndexOf(N) < arreglo.Count - 1)
+                    Console.Write(',');
+            }
+            Console.Write("]\n");
+        }
         public void CuadroComparitivo(List<int> Lista)
         {
             

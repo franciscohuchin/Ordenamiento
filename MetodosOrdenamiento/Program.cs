@@ -10,9 +10,9 @@ namespace MetodosOrdenamiento
     {
         static void Main(string[] args)
         {
-            List<int> aleatorios = new List<int>();
+            List<int> aleatorios = new List<int>(); //{ 15,67,8,16,44,27,12,35};
             /*Ordenamiento ordenamiento = new Ordenamiento();
-            var ordenados = ordenamiento.QuickSort(aleatorios);
+            var ordenados = ordenamiento.Shell(aleatorios);
             for (int i = 0; i < ordenados.Count; i++)
             {
                 Console.WriteLine(ordenados[i]);
